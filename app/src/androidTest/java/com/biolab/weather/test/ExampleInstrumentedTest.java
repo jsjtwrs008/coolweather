@@ -1,4 +1,4 @@
-package com.biolab.weather.weather;
+package com.biolab.weather.test;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

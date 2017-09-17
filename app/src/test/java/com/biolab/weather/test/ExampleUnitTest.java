@@ -1,4 +1,4 @@
-package com.biolab.weather.weather;
+package com.biolab.weather.test;
 
 import org.junit.Test;
 
