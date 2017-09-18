@@ -1,10 +1,13 @@
 package com.biolab.weather.test.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.biolab.weather.test.db.City;
 import com.biolab.weather.test.db.County;
 import com.biolab.weather.test.db.Province;
+import com.biolab.weather.test.gson.Weather;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +65,7 @@ public class Utility {
                     JSONObject countyObj = allCounties.getJSONObject(i);
                     County county = new County();
                     county.setCountyName(countyObj.getString("name"));
-                    county.setWeatherId(countyObj.getString("weather_name"));
+                    county.setWeatherId(countyObj.getString("weather_id"));
                     county.setCityid(cityId);
                     county.save();
                 }
@@ -72,5 +75,18 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    public static Weather handleWeatherResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherStr = jsonArray.getJSONObject(0).toString();
+            Log.i("weather", weatherStr);
+            return new Gson().fromJson(weatherStr, Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
